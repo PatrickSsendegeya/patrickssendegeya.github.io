@@ -15,7 +15,6 @@
             overflow: hidden;
             position: relative;
             flex-direction: column;
-            padding: 10px;
         }
         .countdown {
             text-align: center;
@@ -26,12 +25,10 @@
             position: relative;
             z-index: 1;
             margin-bottom: 20px;
-            width: 100%;
-            max-width: 400px;
         }
         .title {
             font-size: 2.5em;
-            color: blue; /* Title color */
+            color: blue; /* Title color set to blue */
             margin: 10px 0;
         }
         .timer {
@@ -65,12 +62,8 @@
             max-width: 400px;
             background: #f9f9f9;
             border-radius: 10px;
-            padding: 20px;
+            padding: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .comment-section h3 {
-            margin-bottom: 15px;
-            color: #2c3e50;
         }
         .comment-section input,
         .comment-section textarea {
@@ -79,51 +72,34 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 1em;
         }
-        .comment-section input:focus,
-        .comment-section textarea:focus {
-            border-color: #3498db;
-            outline: none;
+        .comment-section input {
+            border-color: #ffcc00; /* Highlight email input */
         }
         .comment-section button {
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
         }
         .comment-section button:hover {
             background-color: #2980b9;
-        }
-        .comments-list {
-            margin-top: 15px;
-            max-height: 150px;
-            overflow-y: auto;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-        }
-        .comment {
-            margin-bottom: 10px;
-            padding: 5px;
-            border-radius: 5px;
-            background: #f1f1f1;
-        }
-        .comment strong {
-            color: #3498db;
         }
         .gift-message {
             margin-top: 15px;
             font-size: 1.2em;
             color: #2c3e50;
         }
-        .gift-number {
-            color: #3498db;
-            cursor: pointer;
-            text-decoration: underline;
+        .message {
+            color: #e74c3c; /* Message color */
+            margin-bottom: 15px;
+        }
+        .comment {
+            margin: 10px 0;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
         }
     </style>
 </head>
@@ -133,21 +109,26 @@
     <div class="circle">
         <img src="Pato.jpg" alt="Patrick">
     </div>
-    <h1 class="title">🎉 CEO Patrick's Birthday! 🎈</h1>
+    <h1 class="title">🎉 Countdown to Patrick's Birthday! 🎈</h1>
     <div class="timer" id="timer"></div>
     <div class="message">Get ready for a fantastic celebration!</div>
     <div class="gift-message">
-        You can send a gift on <span class="gift-number" onclick="dialNumber()">0783409927</span>
+        You can send a gift on <a href="https://wa.me/0783409927?text=Happy%20Birthday%20Pato" target="_blank">0783409927</a>
     </div>
 </div>
 
 <div class="comment-section">
-    <h3>Leave a Comment</h3>
-    <input type="text" id="name" placeholder="Your Name" required>
+    <h3>Lets Celebrate together as you Leave a Comment</h3>
+    <input type="email" id="email" placeholder="Your Name" required>
     <textarea id="comment" placeholder="Your Comment" rows="4" required></textarea>
     <button onclick="submitComment()">Submit</button>
-    <div class="comments-list" id="comments-list"></div>
+    <div id="comments-list" style="margin-top: 10px;"></div>
 </div>
+
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
 
 <script>
     // Set the date for Patrick's birthday
@@ -175,20 +156,16 @@
     }, 1000);
 
     function submitComment() {
-        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
         const comment = document.getElementById("comment").value;
-        if (name && comment) {
+        if (email && comment) {
             const commentsList = document.getElementById("comments-list");
-            commentsList.innerHTML += `<div class="comment"><strong>${name}:</strong> ${comment}</div>`;
-            document.getElementById("name").value = '';
+            commentsList.innerHTML += `<p class="comment"><strong>${email}:</strong> ${comment}</p>`;
+            document.getElementById("email").value = '';
             document.getElementById("comment").value = '';
         } else {
             alert("Please fill in all fields.");
         }
-    }
-
-    function dialNumber() {
-        window.location.href = "tel:*165*1*1#";
     }
 </script>
 

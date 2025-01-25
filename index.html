@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer for Patrick's Birthday</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0f7fa;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+        }
+        .countdown {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 2.5em;
+            color: blue; /* Title color */
+            margin: 10px 0;
+        }
+        .timer {
+            font-size: 3em;
+        }
+        .day { color: #3498db; }
+        .hour { color: #2ecc71; }
+        .minute { color: #f39c12; }
+        .second { color: #e74c3c; }
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 5px solid #3498db;
+            position: relative;
+        }
+        .circle img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .comment-section {
+            margin-top: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 400px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .comment-section h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .comment-section input,
+        .comment-section textarea {
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .comment-section input:focus,
+        .comment-section textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .comment-section button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .comment-section button:hover {
+            background-color: #2980b9;
+        }
+        .comments-list {
+            margin-top: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        .comment {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            background: #f1f1f1;
+        }
+        .comment strong {
+            color: #3498db;
+        }
+        .gift-message {
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        .gift-number {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="countdown">
+    <div class="circle">
+        <img src="path/to/patrick-image.jpg" alt="Patrick">
+    </div>
+    <h1 class="title">🎉 Countdown to Patrick's Birthday! 🎈</h1>
+    <div class="timer" id="timer"></div>
+    <div class="message">Get ready for a fantastic celebration!</div>
+    <div class="gift-message">
+        You can send a gift on <span class="gift-number" onclick="dialNumber()">0783409927</span>
+    </div>
+</div>
+
+<div class="comment-section">
+    <h3>Leave a Comment</h3>
+    <input type="text" id="name" placeholder="Your Name" required>
+    <textarea id="comment" placeholder="Your Comment" rows="4" required></textarea>
+    <button onclick="submitComment()">Submit</button>
+    <div class="comments-list" id="comments-list"></div>
+</div>
+
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+
+<script>
+    // Set the date for Patrick's birthday
+    const birthday = new Date("2025-01-30T00:00:00").getTime();
+
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = birthday - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = 
+            `<span class="day">${days}d</span> ` + 
+            `<span class="hour">${hours}h</span> ` + 
+            `<span class="minute">${minutes}m</span> ` + 
+            `<span class="second">${seconds}s</span> `;
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("timer").innerHTML = "🎉 It's Party Time! 🎉";
+        }
+    }, 1000);
+
+    function submitComment() {
+        const name = document.getElementById("name").value;
+        const comment = document.getElementById("comment").value;
+        if (name && comment) {
+            const commentsList = document.getElementById("comments-list");
+            commentsList.innerHTML += `<div class="comment"><strong>${name}:</strong> ${comment}</div>`;
+            document.getElementById("name").value = '';
+            document.getElementById("comment").value = '';
+        } else {
+            alert("Please fill in all fields.");
+        }
+    }
+
+    function dialNumber() {
+        window.location.href = "tel:*165*1*1*0783409927*10000#";
+    }
+</script>
+
+</body>
+</html>
